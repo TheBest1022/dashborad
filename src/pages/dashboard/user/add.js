@@ -17,6 +17,7 @@ const rols = [
 
 const Add = () => {
   const [checkedItems, setCheckedItems] = useState([]);
+  const [values, setValues] = useState({ Nombre: '' }); 
   const { company, obtenerEscuela, createUser } = useGlobal();
   const [user, setUser] = useState({
     id: "",
@@ -30,6 +31,7 @@ const Add = () => {
     rol: "",
   });
 
+  
   const handleCheckChange = (id, isChecked) => {
     if (isChecked) {
       setCheckedItems([...checkedItems, { id }]);
@@ -104,10 +106,10 @@ const Add = () => {
               Ingrese sus datos necesarios para el registro.
             </p>
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-3">
+              <div className="sm:col-span-6">
                 <label
                   htmlFor="rol"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-bold leading-6 text-gray-900"
                 >
                   Rol
                 </label>
@@ -117,9 +119,9 @@ const Add = () => {
                     id="rol"
                     name="rol"
                     autoComplete="empresa-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    className="w-full px-4 py-2 text-green-900 placeholder-green-700 border border-green-500 rounded outline-none focus:ring-green-500 focus:border-green-500 focus:ring-1"
                   >
-                    <option>Seleccionar</option>
+                    <option>-- Seleccionar --</option>
                     {rols.map(({ id, name }) => (
                       <option key={id} value={id}>
                         {name}
@@ -142,11 +144,14 @@ const Add = () => {
                     name="documento"
                     id="documento"
                     autoComplete="given-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="w-full px-4 py-2 text-blue-900 placeholder-red-700 border border-red-500 rounded outline-none focus:ring-red-500 focus:border-red-500 focus:ring-1"
+                    required
+                    maxLength={8}
                   />
+                  <p className="text-red-500 text-sm mt-1">Este campo es obligatorio</p>
                 </div>
               </div>
-              <div className="sm:col-span-3">
+              <div className="sm:col-span-2">
                 <label
                   htmlFor="first-name"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -160,11 +165,13 @@ const Add = () => {
                     name="Nombre"
                     id="Nombre"
                     autoComplete="given-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="w-full px-4 py-2 text-red-900 placeholder-red-700 border border-red-500 rounded outline-none focus:ring-red-500 focus:border-red-500 focus:ring-1"
+                    required
                   />
+                  <p className="text-red-500 text-sm mt-1">Este campo es obligatorio</p>
                 </div>
               </div>
-              <div className="sm:col-span-3">
+              <div className="sm:col-span-2">
                 <label
                   htmlFor="last-name"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -178,8 +185,9 @@ const Add = () => {
                     name="Apellido"
                     id="Apellido"
                     autoComplete="family-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="w-full px-4 py-2 text-red-900 placeholder-red-700 border border-red-500 rounded outline-none focus:ring-red-500 focus:border-red-500 focus:ring-1"
                   />
+                  <p className="text-red-500 text-sm mt-1">Este campo es obligatorio</p>
                 </div>
               </div>
               <div className="sm:col-span-3">
@@ -198,7 +206,7 @@ const Add = () => {
                     disabled={true}
                     value={user.documento}
                     autoComplete="given-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="w-full px-4 py-2 text-green-900 placeholder-green-700 border border-green-500 rounded outline-none focus:ring-green-500 focus:border-green-500 focus:ring-1"
                   />
                 </div>
               </div>
@@ -216,9 +224,11 @@ const Add = () => {
                     name="contraseña"
                     id="email"
                     autoComplete="family-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="w-full px-4 py-2 text-red-900 placeholder-red-700 border border-red-500 rounded outline-none focus:ring-red-500 focus:border-red-500 focus:ring-1"
+                    maxLength={4}
                   />
                 </div>
+                <p className="text-red-500 text-sm mt-1">Este campo es obligatorio</p>
               </div>
               <div className="sm:col-span-3">
                 <label
@@ -233,9 +243,9 @@ const Add = () => {
                     id="empresa"
                     name="empresa"
                     autoComplete="empresa-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    className="w-full px-4 py-2 text-green-900 placeholder-green-700 border border-green-500 rounded outline-none focus:ring-green-500 focus:border-green-500 focus:ring-1"
                   >
-                    <option>Seleccionar</option>
+                    <option>-- Seleccionar --</option>
                     {company.map((item) => (
                       <option key={item.id} value={item.id}>
                         {item.nombre}
@@ -245,8 +255,14 @@ const Add = () => {
                 </div>
               </div>
               {user.rol == 5 && (
-                <div className="sm:col-span-3">
-                  <div className="flex flex-wrap">
+                <div className="sm:col-span-6">
+                  <label
+                  htmlFor="curso"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Seleccionar Curso
+                </label>
+                  <div className="flex flex-wrap space-y-2 mt-2">
                     {checkboxes.map((item) => (
                       <div
                         key={item.id}
@@ -258,11 +274,11 @@ const Add = () => {
                           onChange={(e) =>
                             handleCheckChange(item.id, e.target.checked)
                           }
-                          className="form-checkbox h-5 w-5 text-blue-600"
+                          className="form-checkbox h-6 w-6 text-blue-600"
                         />
                         <label
                           htmlFor={`checkbox-${item.id}`}
-                          className="text-gray-700"
+                          className="text-gray-700 "
                         >
                           {item.name}
                         </label>

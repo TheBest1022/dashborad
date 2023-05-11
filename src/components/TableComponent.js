@@ -48,10 +48,10 @@ const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
                 return (
                   <tr key={datas.id}>
                     {title?.map((item) => {
-                      const value = datas[item.id];
+                      const value = item[item.id];
                       return (
                         <td
-                          key={item.id}
+                          key={datas.id}
                           className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-base xl:text-base"
                         >
                           {value}

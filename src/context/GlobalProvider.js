@@ -13,6 +13,7 @@ export const useGlobal = () => {
 
 export const GlobalContextProvider = ({ children }) => {
   const [auth, setAuth] = useState(null);
+  const [docente, setDocente] = useState([]);
   const [company, setCompany] = useState([]);
   //INGRESAR
   const SignIn = async (user) => {
@@ -26,6 +27,15 @@ export const GlobalContextProvider = ({ children }) => {
   const createUser = async (user) => {
     return await axios.post(`${connectionUri}api/admin/register`, user)
   }
+  //DOCENTES
+  const obtenerDatosDocente = async (id) => {
+    try {
+      const { data } = await axios.get(`${conexionURL}api/docente/names/${id}`);
+      setDocente(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //ESCUELAS 
   const obtenerEscuela = async () => {
     try {
@@ -41,11 +51,13 @@ export const GlobalContextProvider = ({ children }) => {
       value={{
         auth,
         company,
+        docente,
         SignIn,
         LogOut,
         setAuth,
         createUser,
-        obtenerEscuela
+        obtenerEscuela,
+        obtenerDatosDocente
       }}
     >
       {children}

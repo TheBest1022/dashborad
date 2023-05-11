@@ -1,20 +1,29 @@
 import Layout from "../../../components/Layout";
 import React from "react";
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import TableComponent from "../../../components/TableComponent";
 import { useRouter } from "next/router";
-const title = [
+import { useGlobal } from "../../../context/GlobalProvider";
+import { useEffect } from "react";
+const item = [
   {
-    id: "year",
-    name: "Año",
+    id: "Nombre",
+    name: "Nombre",
   },
   {
-    id: "dateInit",
-    name: "Fecha Inicio",
+    id: "Apellido",
+    name: "Apellido",
   },
   {
-    id: "dateEnd",
-    name: "Fecha Final",
+    id: "Rol",
+    name: "Rol",
+  },
+  {
+    id: "Curso",
+    name: "Curso",
+  },
+  {
+    id: "Empresa",
+    name: "Empresa",
   },
 ];
 const dataOpen = [
@@ -56,7 +65,11 @@ const dataOpen = [
   },
 ];
 const Home = () => {
+  const {auth, docente, obtenerDatosDocente} = useGlobal();
   const router = useRouter();
+  useEffect(() => {
+    obtenerDatosDocente(auth);
+  }, []);
   return (
     <Layout>
       <button
@@ -67,7 +80,7 @@ const Home = () => {
       >
         Registrar Director
       </button>
-      <TableComponent title={title} data={dataOpen} />
+      <TableComponent title={item} data={dataOpen} />
     </Layout>
   );
 };
