@@ -15,9 +15,9 @@ const user = {
 };
 const navigation = [
   { name: "Home", href: "/dashboard", current: true },
-  { name: "Director", href: "/dashboard/director", current: false },
-  { name: "Docente", href: "#", current: false },
-  { name: "Colegios", href: "#", current: false },
+  { name: "Director", href: "/dashboard/user", current: false },
+  { name: "Docente", href: "/dashboard/docente", current: false },
+  { name: "Colegios", href: "/dashboard/empresa", current: false },
   { name: "Cursos", href: "#", current: false },
 ];
 const userNavigation = [
