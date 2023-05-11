@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 
 const people = [
   {
-    name: "Directores",
-    role: "Sección / Director",
+    name: "Usuarios",
+    role: "Sección / Usuarios",
     imageUrl: "https://www.dropbox.com/s/p72480ssmktze6a/director.png?dl=1",
     link:"/dashboard/user"
   },
@@ -15,11 +15,6 @@ const people = [
     role: "Sección / Docentes",
     imageUrl: "https://www.dropbox.com/s/mzj1qapmjvt83ck/prof.png?dl=1",
     link:"/dashboard/docente"
-  },
-  {
-    name: "Cursos",
-    role: "Sección / Cursos",
-    imageUrl: "https://www.dropbox.com/s/efl7lgm87uoruth/curso.png?dl=1",
   },
   {
     name: "Colegios",
