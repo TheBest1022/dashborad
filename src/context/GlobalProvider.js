@@ -22,9 +22,9 @@ export const GlobalContextProvider = ({ children }) => {
   const LogOut = () => {
     setAuth(null);
   };
-  //REGISTRO DIRECTOR
-  const registerDirector = async (user) => {
-    return await axios.post(`${connectionUri}api/auth/register/director`, user)
+  // USUARIOS
+  const createUser = async (user) => {
+    return await axios.post(`${connectionUri}api/admin/register`, user)
   }
   //ESCUELAS 
   const obtenerEscuela = async () => {
@@ -44,7 +44,7 @@ export const GlobalContextProvider = ({ children }) => {
         SignIn,
         LogOut,
         setAuth,
-        registerDirector,
+        createUser,
         obtenerEscuela
       }}
     >
