@@ -5,6 +5,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useGlobal } from "../context/GlobalProvider";
 import Image from "next/image";
 import Head from "next/head";
+import Link from "next/link";
 import NProgress from "nprogress";
 
 const user = {
@@ -21,8 +22,8 @@ const navigation = [
   { name: "Cursos", href: "#", current: false },
 ];
 const userNavigation = [
-  { name: "Perfil", href: "#" },
-  { name: "Cerrar Sesión", href: "#" },
+  { name: "Perfil", href: "#", onClick: null },
+  { name: "Cerrar Sesión", href: "#", onClick: "handleclickPress" },
 ];
 
 function classNames(...classes) {
@@ -31,11 +32,15 @@ function classNames(...classes) {
 
 const Layout = ({ children }) => {
   const router = useRouter();
-  const {LogOut} = useGlobal();
+  const { LogOut, setAuth } = useGlobal();
   const handleclickPress = () => {
     LogOut();
-    router.push("/");
+    if (localStorage.getItem("item") == null) {
+      setAuth(null);
+      window.location.href = "/";
+    }
   };
+
   useEffect(() => {
     const handleRouteChange = (url) => {
       NProgress.start();
@@ -73,7 +78,7 @@ const Layout = ({ children }) => {
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
-                          <a
+                          <Link
                             key={item.name}
                             href={item.href}
                             className={classNames(
@@ -85,7 +90,7 @@ const Layout = ({ children }) => {
                             aria-current={item.current ? "page" : undefined}
                           >
                             {item.name}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -117,12 +122,12 @@ const Layout = ({ children }) => {
                         >
                           <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <Menu.Item>
-                              <a
+                              <Link
                                 href="#"
                                 className="bg-gray-100 block px-4 py-2 text-sm text-gray-700"
                               >
                                 Perfil
-                              </a>
+                              </Link>
                             </Menu.Item>
                             <Menu.Item>
                               <button
@@ -209,6 +214,7 @@ const Layout = ({ children }) => {
                         key={item.name}
                         as="a"
                         href={item.href}
+                        onClick={item.onClick != null ? handleclickPress : ""}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
                         {item.name}

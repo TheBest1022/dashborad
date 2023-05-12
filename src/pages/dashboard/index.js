@@ -8,19 +8,19 @@ const people = [
     name: "Usuarios",
     role: "Sección / Usuarios",
     imageUrl: "https://www.dropbox.com/s/p72480ssmktze6a/director.png?dl=1",
-    link:"/dashboard/user"
+    link: "/dashboard/user",
   },
   {
     name: "Docentes",
     role: "Sección / Docentes",
     imageUrl: "https://www.dropbox.com/s/mzj1qapmjvt83ck/prof.png?dl=1",
-    link:"/dashboard/docente"
+    link: "/dashboard/docente",
   },
   {
     name: "Colegios",
     role: "Sección / Colegios",
     imageUrl: "https://www.dropbox.com/s/9c8pgw4zftry8mk/colegio.png?dl=1",
-    link:"/dashboard/empresa"
+    link: "/dashboard/empresa",
   },
 ];
 
@@ -47,7 +47,11 @@ const Home = () => {
           >
             {people.map((person) => (
               <li key={person.name}>
-                <button onClick={() => {router.push(person.link)}}>
+                <button
+                  onClick={() => {
+                    router.push(person.link);
+                  }}
+                >
                   <div className="flex items-center gap-x-6">
                     <img
                       className="h-20 w-20 rounded-full"

@@ -1,86 +1,41 @@
 import Layout from "../../../components/Layout";
-import React from "react";
 import TableComponent from "../../../components/TableComponent";
 import { useRouter } from "next/router";
 import { useGlobal } from "../../../context/GlobalProvider";
 import { useEffect } from "react";
-const item = [
+
+const titleUserTable = [
   {
-    id: "Nombre",
-    name: "Nombre",
+    id: "usuario",
+    name: "Usuario",
   },
   {
-    id: "Apellido",
-    name: "Apellido",
-  },
-  {
-    id: "Rol",
+    id: "rol",
     name: "Rol",
   },
   {
-    id: "Curso",
-    name: "Curso",
-  },
-  {
-    id: "Empresa",
-    name: "Empresa",
+    id: "institucion",
+    name: "Institución",
   },
 ];
-const dataOpen = [
-  {
-    id: "1",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
-  },
-  {
-    id: "2",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
-  },
-  {
-    id: "3",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
-  },
-  {
-    id: "4",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
-  },
-  {
-    id: "5",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
-  },
-  {
-    id: "6",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
-  },
-];
+
 const Home = () => {
-  const {auth, docente, obtenerDatosDocente} = useGlobal();
+  const { auth, user, obtenerUsuarios } = useGlobal();
   const router = useRouter();
   useEffect(() => {
-    obtenerDatosDocente(auth);
-  }, []);
+    obtenerUsuarios(auth.id_empresa);
+  }, [auth.id_empresa, obtenerUsuarios]);
   return (
     <Layout>
       <button
-        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        className="mb-5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 text-right"
         onClick={() => {
-          router.push("/dashboard/user/add");
+          router.push("/dashboard/user/create");
         }}
       >
-        Registrar Director
+        Crear Usuario
       </button>
-      <TableComponent title={item} data={dataOpen} />
+      <TableComponent title={titleUserTable} data={user} />
     </Layout>
   );
 };

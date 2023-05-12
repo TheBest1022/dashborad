@@ -1,75 +1,57 @@
 import Layout from "../../../components/Layout";
-import React from "react";
+import { useEffect } from "react";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import TableComponent from "../../../components/TableComponent";
+import TableCourseComponent from "../../../components/table/TableCourseComponent";
 import { useRouter } from "next/router";
+import { useGlobal } from "../../../context/GlobalProvider";
 const title = [
   {
-    id: "year",
-    name: "Año",
+    id: "documento",
+    name: "DNI",
   },
   {
-    id: "dateInit",
-    name: "Fecha Inicio",
+    id: "Nombre",
+    name: "NOMBRES",
   },
   {
-    id: "dateEnd",
-    name: "Fecha Final",
+    id: "Apellido",
+    name: "APELLIDOS",
+  },
+  {
+    id: "Descripción",
+    name: "CURSO",
   },
 ];
-const dataOpen = [
+const titleCourse = [
   {
-    id: "1",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
-  },
-  {
-    id: "2",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
-  },
-  {
-    id: "3",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
-  },
-  {
-    id: "4",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
-  },
-  {
-    id: "5",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
-  },
-  {
-    id: "6",
-    year: "2023",
-    dateInit: "14/04/2023",
-    dateEnd: "14/12/2023",
+    id: "curso",
+    name: "Curso",
   },
 ];
-const index = () => {
-    const router = useRouter();
-    return (
-      <Layout>
-        <button
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={() => {
-            router.push("/dashboard/empresa/add");
-          }}
-        >
-          Registrar Docente
-        </button>
-        <TableComponent title={title} data={dataOpen} />
-      </Layout>
-    );
+const Home = () => {
+  const router = useRouter();
+  const { auth, docente, obtenerDatosDocente, course, getCoursesForId } =
+    useGlobal();
+
+  useEffect(() => {
+    obtenerDatosDocente(auth.id_empresa);
+  }, [auth.id_empresa, obtenerDatosDocente]);
+
+  useEffect(() => {
+    if (auth.idDocente) {
+      getCoursesForId(auth.idDocente);
+    }
+  }, [auth.idDocente, getCoursesForId]);
+  return (
+    <Layout>
+      {auth.IdRol == 6 || auth.IdRol == 1 ? (
+        <TableComponent title={title} data={docente} />
+      ) : (
+        <TableCourseComponent title={titleCourse} data={course} />
+      )}
+    </Layout>
+  );
 };
 
-export default index
+export default Home;

@@ -1,4 +1,4 @@
-import { useContext, useState} from "react";
+import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { GlobalContext } from "./GlobalContext";
 import { connectionUri } from "../helpers/configuration";
@@ -13,7 +13,9 @@ export const useGlobal = () => {
 
 export const GlobalContextProvider = ({ children }) => {
   const [auth, setAuth] = useState(null);
+  const [user, setUser] = useState([]);
   const [docente, setDocente] = useState([]);
+  const [course, setCourse] = useState([])
   const [company, setCompany] = useState([]);
   //INGRESAR
   const SignIn = async (user) => {
@@ -21,22 +23,44 @@ export const GlobalContextProvider = ({ children }) => {
   };
   //SALIDA
   const LogOut = () => {
-    setAuth(null);
+    localStorage.removeItem("auth");
   };
   // USUARIOS
   const createUser = async (user) => {
-    return await axios.post(`${connectionUri}api/admin/register`, user)
-  }
+    return await axios.post(`${connectionUri}api/admin/register`, user);
+  };
+  const obtenerUsuarios = async (id) => {
+    try {
+      const { data } = await axios.get(`${connectionUri}api/admin/${id}/users`);
+      setUser(data);
+    } catch (error) {
+      console.log(error);
+    }
+    return;
+  };
   //DOCENTES
   const obtenerDatosDocente = async (id) => {
     try {
-      const { data } = await axios.get(`${conexionURL}api/docente/names/${id}`);
+      const { data } = await axios.get(
+        `${connectionUri}api/docente/names/${id}`
+      );
       setDocente(data);
     } catch (error) {
       console.log(error);
     }
   };
-  //ESCUELAS 
+  //CURSOS
+  const getCoursesForId = async (id) => {
+    try {
+      const { data } = await axios.get(
+        `${connectionUri}api/course/docente/${id}`
+      );
+      setCourse(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //ESCUELAS
   const obtenerEscuela = async () => {
     try {
       const { data } = await axios.get(`${connectionUri}api/company`);
@@ -46,18 +70,38 @@ export const GlobalContextProvider = ({ children }) => {
     }
     return;
   };
+
+  const checkLocalStorage = () => {
+    const storedAuth = localStorage.getItem("auth");
+
+    if (storedAuth !== null) {
+      const data = JSON.parse(storedAuth);
+      console.log(data);
+      setAuth(data);
+    } else {
+      setAuth(null);
+    }
+  };
+
+  useEffect(() => {
+    checkLocalStorage();
+  }, []);
   return (
     <GlobalContext.Provider
       value={{
         auth,
+        user,
+        course,
         company,
         docente,
         SignIn,
         LogOut,
         setAuth,
         createUser,
+        obtenerUsuarios,
+        getCoursesForId,
         obtenerEscuela,
-        obtenerDatosDocente
+        obtenerDatosDocente,
       }}
     >
       {children}

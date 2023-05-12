@@ -1,12 +1,12 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGlobal } from "../context/GlobalProvider";
 import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
-  const { setAuth, SignIn } = useGlobal();
+  const { setAuth, SignIn, auth } = useGlobal();
   const [user, setUser] = useState({
     us: "",
     password: "",
@@ -26,6 +26,7 @@ export default function Home() {
     try {
       const { status, data } = await SignIn(user);
       if (status == 201) {
+        localStorage.setItem("auth", JSON.stringify(data.user));
         setAuth(data.user);
         router.push("/dashboard");
       } else {
@@ -36,6 +37,12 @@ export default function Home() {
       alert(error);
     }
   };
+
+  useEffect(() => {
+    if (auth != null) {
+      router.push("/dashboard");
+    }
+  }, []);
 
   return (
     <>

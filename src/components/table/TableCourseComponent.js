@@ -2,7 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import ReactPaginate from "react-paginate";
 
-const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
+const TableCourseComponent = ({ section, tag, title, data, pageSize = 5 }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const pageCount = Math.ceil(data.length / pageSize);
 
@@ -24,7 +24,7 @@ const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-sm xl:text-sm"
+                  className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-sm xl:text-sm"
                 >
                   #
                 </th>
@@ -37,18 +37,6 @@ const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
                     {name}
                   </th>
                 ))}
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-sm xl:text-sm"
-                >
-                  Edit
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-sm xl:text-sm"
-                >
-                  Delete
-                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -56,7 +44,7 @@ const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
                 const globalIndex = currentPage * pageSize + index + 1;
                 return (
                   <tr key={datas.id}>
-                    <td className="px-6 py-4 text-xs text-[#34495E] whitespace-nowrap sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-base xl:text-xs">
+                    <td className="px-6 py-4 text-xs text-center text-[#34495E] whitespace-nowrap sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-base xl:text-xs">
                       {globalIndex}
                     </td>
                     {title?.map((item) => {
@@ -70,22 +58,6 @@ const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
                         </td>
                       );
                     })}
-                    <td className="px-6 py-4 text-xs whitespace-nowrap sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-base xl:text-xs">
-                      <Link
-                        className="text-green-500 hover:text-green-700"
-                        href={`/dashboard/${section}/edit/${datas.id}`}
-                      >
-                        Editar
-                      </Link>
-                    </td>
-                    <td className="px-6 py-4 text-xs font-medium text-right whitespace-nowrap sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-base xl:text-xs">
-                      <Link
-                        className="text-red-500 hover:text-red-700"
-                        href="#"
-                      >
-                        Eliminar
-                      </Link>
-                    </td>
                   </tr>
                 );
               })}
@@ -118,4 +90,4 @@ const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
   );
 };
 
-export default TableComponent;
+export default TableCourseComponent;
