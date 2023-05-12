@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import ReactPaginate from "react-paginate";
+import { excludeDefaultMomentLocales } from "../../../next.config";
 
 const TableCourseComponent = ({ section, tag, title, data, pageSize = 5 }) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -37,13 +38,19 @@ const TableCourseComponent = ({ section, tag, title, data, pageSize = 5 }) => {
                     {name}
                   </th>
                 ))}
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-xs font-bold text-center text-gray-500 uppercase sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-sm xl:text-sm"
+                >
+                  OPCIONES
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {currentData?.map((datas, index) => {
                 const globalIndex = currentPage * pageSize + index + 1;
                 return (
-                  <tr key={datas.id}>
+                  <tr key={index}>
                     <td className="px-6 py-4 text-xs text-center text-[#34495E] whitespace-nowrap sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-base xl:text-xs">
                       {globalIndex}
                     </td>
@@ -58,6 +65,11 @@ const TableCourseComponent = ({ section, tag, title, data, pageSize = 5 }) => {
                         </td>
                       );
                     })}
+                    <td className="px-6 py-4 text-xs text-center text-[#34495E] whitespace-nowrap sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-base xl:text-xs">
+                      <Link href={`/dashboard/curso/${datas.id_docente}`} className="text-green-500 hover:text-green-700">
+                        Ver curso
+                      </Link>
+                    </td>
                   </tr>
                 );
               })}
