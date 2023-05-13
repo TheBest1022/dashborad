@@ -35,7 +35,9 @@ const Home = () => {
       >
         Crear Usuario
       </button>
-      <TableComponent title={titleUserTable} data={user} />
+      {(auth.IdRol == 6 || auth.IdRol == 1) && (
+        <TableComponent title={titleUserTable} data={user} />
+      )}
     </Layout>
   );
 };
