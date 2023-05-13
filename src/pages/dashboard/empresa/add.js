@@ -4,13 +4,56 @@ import { useGlobal } from "../../../context/GlobalProvider";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-
 const Add = () => {
+  const { createCompany } = useGlobal();
+  const [company, setCompany] = useState({
+    nombre: "",
+    distrito: "",
+    provincia: "",
+    departamento: "",
+  });
 
+  const clear = () => {
+    setCompany({
+      nombre: "",
+      distrito: "",
+      provincia: "",
+      departamento: "",
+    });
+  };
+
+  const handleChange = ({ target: { name, value } }) => {
+    setCompany({ ...company, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      company.nombre == "" ||
+      company.distrito == "" ||
+      company.departamento == "" ||
+      company.provincia == ""
+    ) {
+      alert("Campos Vacios");
+      return;
+    }
+
+    try {
+      const { status, data } = await createCompany(company);
+      if (status == 201) {
+        clear();
+        alert("Registrado");
+      } else {
+        alert(`${data.message}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Layout>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -22,7 +65,7 @@ const Add = () => {
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-6">
                 <label
-                  htmlFor="first-name"
+                  htmlFor="nombre"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Nombre
@@ -32,6 +75,8 @@ const Add = () => {
                     type="text"
                     name="nombre"
                     id="nombre"
+                    value={company.nombre}
+                    onChange={handleChange}
                     autoComplete="given-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -39,7 +84,7 @@ const Add = () => {
               </div>
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="last-name"
+                  htmlFor="distrito"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Distrito
@@ -49,6 +94,8 @@ const Add = () => {
                     type="text"
                     name="distrito"
                     id="distrito"
+                    value={company.distrito}
+                    onChange={handleChange}
                     autoComplete="family-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -56,7 +103,7 @@ const Add = () => {
               </div>
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="first-name"
+                  htmlFor="provincia"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Provincia
@@ -66,6 +113,8 @@ const Add = () => {
                     type="text"
                     name="provincia"
                     id="provincia"
+                    onChange={handleChange}
+                    value={company.provincia}
                     autoComplete="given-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -73,33 +122,18 @@ const Add = () => {
               </div>
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="last-name"
+                  htmlFor="departamento"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Departamento
                 </label>
                 <div className="mt-2">
                   <input
-                    type="password"
-                    name="contraseña"
-                    id="email"
-                    autoComplete="family-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-3">
-                <label
-                  htmlFor="last-name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Fecha
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="date"
-                    name="fecha"
-                    id="fecha"
+                    type="text"
+                    name="departamento"
+                    id="departamento"
+                    value={company.departamento}
+                    onChange={handleChange}
                     autoComplete="family-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />

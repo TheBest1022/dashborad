@@ -17,7 +17,7 @@ const rols = [
 
 const Add = () => {
   const [checkedItems, setCheckedItems] = useState([]);
-  const [values, setValues] = useState({ Nombre: '' }); 
+  const [values, setValues] = useState({ Nombre: "" });
   const { company, obtenerEscuela, createUser } = useGlobal();
   const [user, setUser] = useState({
     id: "",
@@ -31,7 +31,6 @@ const Add = () => {
     rol: "",
   });
 
-  
   const handleCheckChange = (id, isChecked) => {
     if (isChecked) {
       setCheckedItems([...checkedItems, { id }]);
@@ -148,7 +147,9 @@ const Add = () => {
                     required
                     maxLength={8}
                   />
-                  <p className="text-red-500 text-sm mt-1">Este campo es obligatorio</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    Este campo es obligatorio
+                  </p>
                 </div>
               </div>
               <div className="sm:col-span-2">
@@ -168,7 +169,9 @@ const Add = () => {
                     className="w-full px-4 py-2 text-red-900 placeholder-red-700 border border-red-500 rounded outline-none focus:ring-red-500 focus:border-red-500 focus:ring-1"
                     required
                   />
-                  <p className="text-red-500 text-sm mt-1">Este campo es obligatorio</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    Este campo es obligatorio
+                  </p>
                 </div>
               </div>
               <div className="sm:col-span-2">
@@ -187,7 +190,9 @@ const Add = () => {
                     autoComplete="family-name"
                     className="w-full px-4 py-2 text-red-900 placeholder-red-700 border border-red-500 rounded outline-none focus:ring-red-500 focus:border-red-500 focus:ring-1"
                   />
-                  <p className="text-red-500 text-sm mt-1">Este campo es obligatorio</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    Este campo es obligatorio
+                  </p>
                 </div>
               </div>
               <div className="sm:col-span-3">
@@ -228,7 +233,9 @@ const Add = () => {
                     maxLength={4}
                   />
                 </div>
-                <p className="text-red-500 text-sm mt-1">Este campo es obligatorio</p>
+                <p className="text-red-500 text-sm mt-1">
+                  Este campo es obligatorio
+                </p>
               </div>
               <div className="sm:col-span-3">
                 <label
@@ -257,11 +264,11 @@ const Add = () => {
               {user.rol == 5 && (
                 <div className="sm:col-span-6">
                   <label
-                  htmlFor="curso"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Seleccionar Curso
-                </label>
+                    htmlFor="curso"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Seleccionar Curso
+                  </label>
                   <div className="flex flex-wrap space-y-2 mt-2">
                     {checkboxes.map((item) => (
                       <div

@@ -15,7 +15,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [auth, setAuth] = useState(null);
   const [user, setUser] = useState([]);
   const [docente, setDocente] = useState([]);
-  const [course, setCourse] = useState([])
+  const [course, setCourse] = useState([]);
   const [company, setCompany] = useState([]);
   //INGRESAR
   const SignIn = async (user) => {
@@ -71,6 +71,10 @@ export const GlobalContextProvider = ({ children }) => {
     return;
   };
 
+  const createCompany = async (data) => {
+    return await axios.post(`${connectionUri}api/company`, data);
+  };
+
   const checkLocalStorage = () => {
     const storedAuth = localStorage.getItem("auth");
 
@@ -100,6 +104,7 @@ export const GlobalContextProvider = ({ children }) => {
         createUser,
         obtenerUsuarios,
         getCoursesForId,
+        createCompany,
         obtenerEscuela,
         obtenerDatosDocente,
       }}

@@ -6,45 +6,50 @@ import { useRouter } from "next/router";
 import { useGlobal } from "../../../context/GlobalProvider";
 const titleCompanyTable = [
   {
-    id: "Nombre",
-    name: "Nombre",
+    id: "nombre",
+    name: "Institución",
   },
   {
-    id: "Distrito",
+    id: "distrito",
     name: "Distrito",
   },
   {
-    id: "Provincia",
+    id: "provincia",
     name: "Provincia",
   },
   {
-    id: "Región",
-    name: "Región",
+    id: "departamento",
+    name: "Departamento",
   },
   {
-    id: "Fecha",
+    id: "fecha",
     name: "Fecha",
   },
 ];
-const index = () => {
-  const { company, obtenerEscuela } = useGlobal();
+const Home = () => {
+  const { auth, company, obtenerEscuela } = useGlobal();
   const router = useRouter();
   useEffect(() => {
     obtenerEscuela(company.id);
   }, [company.id, obtenerEscuela]);
   return (
     <Layout>
-      <button
-        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        onClick={() => {
-          router.push("/dashboard/empresa/add");
-        }}
-      >
-        Registrar Colegio
-      </button>
-      <TableComponent title={titleCompanyTable} data={company} />
+      {auth.IdRol == 1 && (
+        <>
+          <button
+            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={() => {
+              router.push("/dashboard/empresa/add");
+            }}
+          >
+            Registrar Colegio
+          </button>
+
+          <TableComponent title={titleCompanyTable} data={company} />
+        </>
+      )}
     </Layout>
   );
 };
 
-export default index;
+export default Home;

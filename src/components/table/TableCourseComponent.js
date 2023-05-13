@@ -65,7 +65,10 @@ const TableCourseComponent = ({ section, tag, title, data, pageSize = 5 }) => {
                       );
                     })}
                     <td className="px-6 py-4 text-xs text-center text-[#34495E] whitespace-nowrap sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-base xl:text-xs">
-                      <Link href={`/dashboard/curso/${datas.id_docente}`} className="text-green-500 hover:text-green-700">
+                      <Link
+                        href={`/dashboard/curso/${datas.id_docente}`}
+                        className="text-green-500 hover:text-green-700"
+                      >
                         Ver curso
                       </Link>
                     </td>
