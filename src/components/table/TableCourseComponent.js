@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import ReactPaginate from "react-paginate";
-import { excludeDefaultMomentLocales } from "../../../next.config";
 
 const TableCourseComponent = ({ section, tag, title, data, pageSize = 5 }) => {
   const [currentPage, setCurrentPage] = useState(0);

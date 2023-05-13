@@ -1,6 +1,5 @@
 import Layout from "../../../components/Layout";
 import { useEffect } from "react";
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import TableComponent from "../../../components/TableComponent";
 import TableCourseComponent from "../../../components/table/TableCourseComponent";
 import { useRouter } from "next/router";
