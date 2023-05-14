@@ -19,7 +19,6 @@ const navigation = [
   { name: "Director", href: "/dashboard/user", current: false },
   { name: "Docente", href: "/dashboard/docente", current: false },
   { name: "Colegios", href: "/dashboard/empresa", current: false },
-  { name: "Cursos", href: "#", current: false },
 ];
 const userNavigation = [
   { name: "Perfil", href: "#", onClick: null },
