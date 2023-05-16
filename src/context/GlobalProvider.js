@@ -17,6 +17,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [docente, setDocente] = useState([]);
   const [course, setCourse] = useState([]);
   const [company, setCompany] = useState([]);
+  const [theme, setTheme] = useState([]);
   //INGRESAR
   const SignIn = async (user) => {
     return await axios.post(`${connectionUri}api/auth`, user);
@@ -60,6 +61,20 @@ export const GlobalContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+  //TEMAS
+  const createTema = async (data) => {
+    return await axios.post(`${connectionUri}api/docente/tema`, data);
+  };
+  const obtenerTemasCurso = async (docente,curso) => {
+    try {
+      const { data } = await axios.get(
+        `${connectionUri}api/course/${docente}/theme/${curso}`
+      );
+      setTheme(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   //ESCUELAS
   const obtenerEscuela = async () => {
     try {
@@ -80,7 +95,6 @@ export const GlobalContextProvider = ({ children }) => {
 
     if (storedAuth !== null) {
       const data = JSON.parse(storedAuth);
-      console.log(data);
       setAuth(data);
     } else {
       setAuth(null);
@@ -96,6 +110,7 @@ export const GlobalContextProvider = ({ children }) => {
         auth,
         user,
         course,
+        theme,
         company,
         docente,
         SignIn,
@@ -104,6 +119,8 @@ export const GlobalContextProvider = ({ children }) => {
         createUser,
         obtenerUsuarios,
         getCoursesForId,
+        createTema,
+        obtenerTemasCurso,
         createCompany,
         obtenerEscuela,
         obtenerDatosDocente,
