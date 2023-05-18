@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useMemo, useEffect, Fragment } from "react";
 import { useRouter } from "next/router";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -31,7 +31,10 @@ function classNames(...classes) {
 
 const Layout = ({ children }) => {
   const router = useRouter();
-  const { LogOut, setAuth } = useGlobal();
+  const { auth, LogOut, setAuth } = useGlobal();
+
+  const [isClient, setIsClient] = useState(false);
+
   const handleclickPress = () => {
     LogOut();
     if (localStorage.getItem("item") == null) {
@@ -39,6 +42,17 @@ const Layout = ({ children }) => {
       window.location.href = "/";
     }
   };
+
+  //Redirecciona a la pagina de iniciar sesion si  auth es null
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useMemo(() => {
+    if (isClient && auth === null) {
+      router.push("/");
+    }
+  }, [auth, isClient]);
 
   useEffect(() => {
     const handleRouteChange = (url) => {

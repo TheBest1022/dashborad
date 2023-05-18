@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import ReactPaginate from "react-paginate";
+import { useGlobal } from "../context/GlobalProvider";
 
 const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
+  const {auth} = useGlobal()
   const [currentPage, setCurrentPage] = useState(0);
   const pageCount = Math.ceil(data.length / pageSize);
 

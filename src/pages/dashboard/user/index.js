@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Layout from "../../../components/Layout";
 import TableComponent from "../../../components/TableComponent";
 import { useRouter } from "next/router";
@@ -23,8 +24,10 @@ const Home = () => {
   const { auth, user, obtenerUsuarios } = useGlobal();
   const router = useRouter();
   useEffect(() => {
-    obtenerUsuarios(auth.id_empresa);
-  }, [auth.id_empresa, obtenerUsuarios]);
+    if (auth != null) {
+      obtenerUsuarios(auth.id_empresa);
+    }
+  }, [obtenerUsuarios]);
   return (
     <Layout>
       <button
@@ -35,8 +38,18 @@ const Home = () => {
       >
         Crear Usuario
       </button>
-      {(auth.IdRol == 6 || auth.IdRol == 1) && (
-        <TableComponent title={titleUserTable} data={user} />
+      {auth != null && (
+        <>
+          {(auth.IdRol == 6 || auth.IdRol == 1) && (
+            <>
+              {user.length != 0 ? (
+                <TableComponent title={titleUserTable} data={user} />
+              ) : (
+                <div className="ml-2 spinner"></div>
+              )}
+            </>
+          )}
+        </>
       )}
     </Layout>
   );

@@ -29,27 +29,37 @@ const titleCompanyTable = [
 const Home = () => {
   const { auth, company, obtenerEscuela } = useGlobal();
   const router = useRouter();
+
+  const renderTable = () => {
+    if (auth != null) {
+      return (
+        <>
+          {auth.IdRol == 1 && (
+            <>
+              <button
+                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                onClick={() => {
+                  router.push("/dashboard/empresa/add");
+                }}
+              >
+                Registrar Colegio
+              </button>
+
+              {company.length != 0 ? (
+                <TableComponent title={titleCompanyTable} data={company} />
+              ) : (
+                <div className="ml-2 spinner"></div>
+              )}
+            </>
+          )}
+        </>
+      );
+    }
+  };
   useEffect(() => {
     obtenerEscuela(company.id);
   }, [company.id, obtenerEscuela]);
-  return (
-    <Layout>
-      {auth.IdRol == 1 && (
-        <>
-          <button
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            onClick={() => {
-              router.push("/dashboard/empresa/add");
-            }}
-          >
-            Registrar Colegio
-          </button>
-
-          <TableComponent title={titleCompanyTable} data={company} />
-        </>
-      )}
-    </Layout>
-  );
+  return <Layout></Layout>;
 };
 
 export default Home;

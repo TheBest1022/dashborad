@@ -1,26 +1,42 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import Layout from "@/components/Layout";
-import { useGlobal } from "../../../context/GlobalProvider";
+import { useGlobal } from "../../../../context/GlobalProvider";
+import { connectionUri } from "../../../../helpers/configuration";
 
 const Create = () => {
-  const { createTema } = useGlobal();
+  const { auth, createTema, getCoursesForId, course } = useGlobal();
   const [theme, setTheme] = useState({
     name: "",
     idCurso: "",
+    nameFile: "",
   });
+
+  const [file, setFile] = useState(null);
 
   const handleChange = ({ target: { name, value } }) => {
     setTheme({ ...theme, [name]: value });
   };
 
   const handleSubmit = async (e) => {
+    theme.nameFile = file != null ? file.name : null;
     e.preventDefault();
     if (theme.name == "" || theme.idCurso == "") {
       alert("Faltan campos");
       return;
     }
     try {
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        await axios.post(`${connectionUri}api/docente/upload`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
       const { status, data } = await createTema(theme);
       if (status == 201) {
         alert(data.message);
@@ -28,20 +44,24 @@ const Create = () => {
           name: "",
           idCurso: "",
         });
-      }else{
-        alert(data.message)
+      } else {
+        alert(data.message);
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    getCoursesForId(auth.idDocente);
+  }, []);
   return (
     <Layout>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Curso
+              Tema
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
               Llena los campos para un nuevo registro.
@@ -89,10 +109,12 @@ const Create = () => {
                     autoComplete="country-name"
                     className="w-full px-4 py-2 text-green-900 placeholder-green-700 border border-green-500 rounded outline-none focus:ring-green-500 focus:border-green-500 focus:ring-1"
                   >
-                    <option></option>
-                    <option value={1}>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
+                    <option value=""></option>
+                    {course.map(({ Id, curso }, index) => (
+                      <option key={index} value={Id}>
+                        {curso}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -116,14 +138,15 @@ const Create = () => {
                 />
                 <div className="mt-4 flex text-sm leading-6 text-gray-600">
                   <label
-                    htmlFor="file-upload"
+                    htmlFor="file"
                     className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                   >
                     <span>Upload a file</span>
                     <input
-                      id="file-upload"
-                      name="file-upload"
+                      id="file"
+                      name="file"
                       type="file"
+                      onChange={(e) => setFile(e.target.files[0])}
                       className="sr-only"
                     />
                   </label>

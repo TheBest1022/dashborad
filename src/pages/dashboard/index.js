@@ -1,7 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import Layout from "../../components/Layout";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
+import { useGlobal } from "../../context/GlobalProvider";
 
 const people = [
   {
@@ -9,23 +11,27 @@ const people = [
     role: "Sección / Usuarios",
     imageUrl: "https://www.dropbox.com/s/p72480ssmktze6a/director.png?dl=1",
     link: "/dashboard/user",
+    roles: [1, 6],
   },
   {
     name: "Docentes",
     role: "Sección / Docentes",
     imageUrl: "https://www.dropbox.com/s/mzj1qapmjvt83ck/prof.png?dl=1",
     link: "/dashboard/docente",
+    roles: [1, 6, 5],
   },
   {
     name: "Colegios",
     role: "Sección / Colegios",
     imageUrl: "https://www.dropbox.com/s/9c8pgw4zftry8mk/colegio.png?dl=1",
     link: "/dashboard/empresa",
+    roles: [1, 6],
   },
 ];
 
 const Home = () => {
   const router = useRouter();
+  const { auth } = useGlobal();
   return (
     <Layout>
       <div className="bg-white py-24 sm:py-32">
@@ -45,31 +51,37 @@ const Home = () => {
             role="list"
             className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
           >
-            {people.map((person) => (
-              <li key={person.name}>
-                <button
-                  onClick={() => {
-                    router.push(person.link);
-                  }}
-                >
-                  <div className="flex items-center gap-x-6">
-                    <img
-                      className="h-20 w-20 rounded-full"
-                      src={person.imageUrl}
-                      alt=""
-                    />
-                    <div>
-                      <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
-                        {person.name}
-                      </h3>
-                      <p className="text-sm font-semibold leading-6 text-indigo-600">
-                        {person.role}
-                      </p>
-                    </div>
-                  </div>
-                </button>
-              </li>
-            ))}
+            {people.map(({ name, link, role, imageUrl, roles }) => {
+              if (auth != null) {
+                if (roles.includes(auth.IdRol)) {
+                  return (
+                    <li key={name}>
+                      <button
+                        onClick={() => {
+                          router.push(link);
+                        }}
+                      >
+                        <div className="flex items-center gap-x-6">
+                          <img
+                            className="h-20 w-20 rounded-full"
+                            src={imageUrl}
+                            alt=""
+                          />
+                          <div>
+                            <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                              {name}
+                            </h3>
+                            <p className="text-sm font-semibold leading-6 text-indigo-600">
+                              {role}
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+                    </li>
+                  );
+                }
+              }
+            })}
           </ul>
         </div>
       </div>
