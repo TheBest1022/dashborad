@@ -11,6 +11,7 @@ export default function Home() {
     us: "",
     password: "",
   });
+  const [loader, setLoader] = useState(false);
   const [message, setMessage] = useState("");
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -18,7 +19,9 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
     if (user.us == "" || user.password == "") {
+      setLoader(false);
       setMessage("Campos vacios");
       alert("Existen Campos Vacíos");
       return;
@@ -29,10 +32,13 @@ export default function Home() {
         localStorage.setItem("auth", JSON.stringify(data.user));
         setAuth(data.user);
         router.push("/dashboard");
+        setLoader(false);
       } else {
+        setLoader(false);
         alert(`${data.message}`);
       }
     } catch (error) {
+      setLoader(false);
       console.log(error);
       alert(error);
     }
@@ -89,12 +95,19 @@ export default function Home() {
                 value={user.password}
               />
             </div>
-            <button
-              type="submit"
-              className="w-full py-2 px-4 bg-blue-600 hover:bg-red-700 text-white font-semibold rounded-lg transition duration-200"
-            >
-              Iniciar sesión
-            </button>
+            {loader ? (
+              <div className="text-center">
+                <div className=" ml-2 spinner"></div>
+              </div>
+              
+            ) : (
+              <button
+                type="submit"
+                className="w-full py-2 px-4 bg-blue-600 hover:bg-red-700 text-white font-semibold rounded-lg transition duration-200"
+              >
+                Iniciar sesión
+              </button>
+            )}
           </form>
           <div className="mt-4 text-center">
             <Link
