@@ -4,7 +4,7 @@ import ReactPaginate from "react-paginate";
 import { useGlobal } from "../context/GlobalProvider";
 
 const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
-  const {auth} = useGlobal()
+  const { auth, deleteUser } = useGlobal();
   const [currentPage, setCurrentPage] = useState(0);
   const pageCount = Math.ceil(data.length / pageSize);
 
@@ -16,6 +16,10 @@ const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
   const startIndex = currentPage * pageSize;
   const endIndex = startIndex + pageSize;
   const currentData = data.slice(startIndex, endIndex);
+
+  const disabledUser = async (id) => {
+    await deleteUser(id);
+  };
 
   return (
     <div className="flex flex-col">
@@ -43,13 +47,14 @@ const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
                   scope="col"
                   className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-sm xl:text-sm"
                 >
-                  Edit
+                  OPCION
                 </th>
+
                 <th
                   scope="col"
                   className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-sm xl:text-sm"
                 >
-                  Delete
+                  OPCION
                 </th>
               </tr>
             </thead>
@@ -72,18 +77,25 @@ const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
                         </td>
                       );
                     })}
-                    <td className="px-6 py-4 text-xs whitespace-nowrap sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-base xl:text-xs">
-                      <Link
-                        className="text-green-500 hover:text-green-700"
-                        href={`/dashboard/${section}/edit/${datas.id}`}
-                      >
-                        Editar
-                      </Link>
-                    </td>
+                    {datas.IdRol != 5 && (
+                      <td className="px-6 py-4 text-xs whitespace-nowrap sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-base xl:text-xs">
+                        <Link
+                          className="text-green-500 hover:text-green-700"
+                          href={`/dashboard/${section}/edit/${datas.id}`}
+                        >
+                          Editar
+                        </Link>
+                      </td>
+                    )}
+
                     <td className="px-6 py-4 text-xs font-medium text-right whitespace-nowrap sm:px-2 md:px-3 lg:px-4 xl:px-6 sm:text-sm md:text-base lg:text-base xl:text-xs">
                       <Link
                         className="text-red-500 hover:text-red-700"
                         href="#"
+                        onClick={(e) => {
+                          e.preventDefault;
+                          disabledUser(datas.id);
+                        }}
                       >
                         Eliminar
                       </Link>

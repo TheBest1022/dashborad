@@ -1,7 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Layout from "../../components/Layout";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { useGlobal } from "../../context/GlobalProvider";
 
@@ -25,7 +23,7 @@ const people = [
     role: "Sección / Colegios",
     imageUrl: "https://www.dropbox.com/s/9c8pgw4zftry8mk/colegio.png?dl=1",
     link: "/dashboard/empresa",
-    roles: [1, 6],
+    roles: [1],
   },
 ];
 

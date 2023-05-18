@@ -19,8 +19,8 @@ const title = [
     name: "APELLIDOS",
   },
   {
-    id: "Descripción",
-    name: "CURSO",
+    id: "empresa",
+    name: "Institución",
   },
 ];
 const titleCourse = [
@@ -40,7 +40,7 @@ const Home = () => {
         return (
           <>
             {docente.length != 0 ? (
-              <TableComponent title={title} data={docente} />
+              <TableComponent title={title} data={docente.filter(({estado})=> estado == 1)} />
             ) : (
               <div className="ml-2 spinner"></div>
             )}
@@ -71,7 +71,7 @@ const Home = () => {
     if (auth != null) {
       getCoursesForId(auth.idDocente);
     }
-  }, [getCoursesForId]);
+  }, []);
   return (
     <Layout>
       {auth != null && (

@@ -30,10 +30,43 @@ export const GlobalContextProvider = ({ children }) => {
   const createUser = async (user) => {
     return await axios.post(`${connectionUri}api/admin/register`, user);
   };
+  const updateUser = async (id, user) => {
+    return await axios.put(`${connectionUri}api/user/teach/${id}`, user);
+  };
+  const updateUserDirector = async (id, user) => {
+    return await axios.put(`${connectionUri}api/user/director/${id}`, user);
+  };
+  const deleteUser = async (id)=>{
+    return await axios.delete(`${connectionUri}api/user/${id}`);
+  }
   const obtenerUsuarios = async (id) => {
     try {
       const { data } = await axios.get(`${connectionUri}api/admin/${id}/users`);
       setUser(data);
+    } catch (error) {
+      console.log(error);
+    }
+    return;
+  };
+  const obtenerUsuarioId = async (id) => {
+    try {
+      return await axios.get(`${connectionUri}api/user/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+    return;
+  };
+  const obtenerUsuarioDocente = async (id) => {
+    try {
+      return await axios.get(`${connectionUri}api/user/teach/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+    return;
+  };
+  const obtenerUsuarioDirector = async (id) => {
+    try {
+      return await axios.get(`${connectionUri}api/user/director/${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +98,7 @@ export const GlobalContextProvider = ({ children }) => {
   const createTema = async (data) => {
     return await axios.post(`${connectionUri}api/docente/tema`, data);
   };
-  const obtenerTemasCurso = async (docente,curso) => {
+  const obtenerTemasCurso = async (docente, curso) => {
     try {
       const { data } = await axios.get(
         `${connectionUri}api/course/${docente}/theme/${curso}`
@@ -117,7 +150,13 @@ export const GlobalContextProvider = ({ children }) => {
         LogOut,
         setAuth,
         createUser,
+        updateUser,
         obtenerUsuarios,
+        obtenerUsuarioId,
+        obtenerUsuarioDocente,
+        obtenerUsuarioDirector,
+        updateUserDirector,
+        deleteUser,
         getCoursesForId,
         createTema,
         obtenerTemasCurso,
