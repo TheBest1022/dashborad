@@ -53,7 +53,9 @@ const Create = () => {
   };
 
   useEffect(() => {
-    getCoursesForId(auth.idDocente);
+    if (auth !== null) {
+      getCoursesForId(auth.idDocente);
+    }
   }, []);
   return (
     <Layout>
