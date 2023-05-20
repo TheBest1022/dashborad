@@ -17,7 +17,7 @@ const user = {
 };
 const navigation = [
   { name: "Home", href: "/dashboard", current: true, roles: [1, 5, 6] },
-  { name: "Director", href: "/dashboard/user", current: false, roles: [1, 6] },
+  { name: "Usuarios", href: "/dashboard/user", current: false, roles: [1, 6] },
   {
     name: "Docente",
     href: "/dashboard/docente",

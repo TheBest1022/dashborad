@@ -97,7 +97,7 @@ const TableComponent = ({ section, tag, title, data, pageSize = 5 }) => {
                           disabledUser(datas.id);
                         }}
                       >
-                        Eliminar
+                        Deshabilitar
                       </Link>
                     </td>
                   </tr>

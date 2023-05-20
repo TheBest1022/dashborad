@@ -46,7 +46,7 @@ const Home = () => {
               </button>
 
               {company.length != 0 ? (
-                <TableComponent title={titleCompanyTable} data={company} />
+                <TableComponent title={titleCompanyTable} data={company} section="empresa"/>
               ) : (
                 <div className="ml-2 spinner"></div>
               )}
@@ -59,7 +59,7 @@ const Home = () => {
   useEffect(() => {
     obtenerEscuela(company.id);
   }, [company.id, obtenerEscuela]);
-  return <Layout></Layout>;
+  return <Layout>{renderTable()}</Layout>;
 };
 
 export default Home;

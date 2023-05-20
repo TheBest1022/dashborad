@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import Layout from "@/components/Layout";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import { PhotoIcon} from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
-import Layout from "@/components/Layout";
 import { useGlobal } from "../../../../context/GlobalProvider";
 import { connectionUri } from "../../../../helpers/configuration";
 

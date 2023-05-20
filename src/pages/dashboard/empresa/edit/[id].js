@@ -1,27 +1,18 @@
-import Layout from "../../../components/Layout";
+import Layout from "../../../../components/Layout";
 import React from "react";
-import { useGlobal } from "../../../context/GlobalProvider";
+import { useGlobal } from "../../../../context/GlobalProvider";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
-const Add = () => {
+const Edit = () => {
   const router = useRouter();
-  const { createCompany } = useGlobal();
+  const { updateCompanyid, ObtenerEmpresaId} = useGlobal();
   const [company, setCompany] = useState({
-    nombre: "",
-    distrito: "",
-    provincia: "",
-    departamento: "",
+    Nombre: "",
+    Distrito: "",
+    Provincia: "",
+    Departamento: "",
   });
-
-  const clear = () => {
-    setCompany({
-      nombre: "",
-      distrito: "",
-      provincia: "",
-      departamento: "",
-    });
-  };
 
   const handleChange = ({ target: { name, value } }) => {
     setCompany({ ...company, [name]: value });
@@ -30,20 +21,19 @@ const Add = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      company.nombre == "" ||
-      company.distrito == "" ||
-      company.departamento == "" ||
-      company.provincia == ""
+      company.Nombre == "" ||
+      company.Distrito == "" ||
+      company.Departamento == "" ||
+      company.Provincia == ""
     ) {
       alert("Campos Vacios");
       return;
     }
-
     try {
-      const { status, data } = await createCompany(company);
+      const { status, data } = await updateCompanyid(company);
       if (status == 201) {
         clear();
-        alert("Registrado");
+        alert("MODIFICADO");
       } else {
         alert(`${data.message}`);
       }
@@ -51,6 +41,17 @@ const Add = () => {
       console.log(error);
     }
   };
+  useEffect(()=>{
+    const loadData = async (id) => {
+      const {data} = await ObtenerEmpresaId(id);
+      console.log(data)
+      setCompany(data[0]);
+    };
+    if (router.query?.id) {
+      loadData(router.query.id);
+    }
+  },[ObtenerEmpresaId])
+
 
   return (
     <Layout>
@@ -61,7 +62,7 @@ const Add = () => {
               Información de Colegios
             </h2>
             <p className="mt-1 text-sm leading-6 text-gray-600">
-              Ingrese sus datos necesarios para el registro.
+            Ingrese sus datos necesarios para la edici&oacute;n.
             </p>
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-6">
@@ -74,9 +75,9 @@ const Add = () => {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="nombre"
-                    id="nombre"
-                    value={company.nombre}
+                    name="Nombre"
+                    id="Nombre"
+                    value={company.Nombre}
                     onChange={handleChange}
                     autoComplete="given-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -93,9 +94,9 @@ const Add = () => {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="distrito"
-                    id="distrito"
-                    value={company.distrito}
+                    name="Distrito"
+                    id="Distrito"
+                    value={company.Distrito}
                     onChange={handleChange}
                     autoComplete="family-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -112,10 +113,10 @@ const Add = () => {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="provincia"
-                    id="provincia"
+                    name="Provincia"
+                    id="Provincia"
                     onChange={handleChange}
-                    value={company.provincia}
+                    value={company.Provincia}
                     autoComplete="given-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -131,9 +132,9 @@ const Add = () => {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="departamento"
-                    id="departamento"
-                    value={company.departamento}
+                    name="Departamento"
+                    id="Departamento"
+                    value={company.Departamento}
                     onChange={handleChange}
                     autoComplete="family-name"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -166,4 +167,4 @@ const Add = () => {
   );
 };
 
-export default Add;
+export default Edit;

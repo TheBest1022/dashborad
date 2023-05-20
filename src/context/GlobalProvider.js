@@ -118,11 +118,9 @@ export const GlobalContextProvider = ({ children }) => {
     }
     return;
   };
-
   const createCompany = async (data) => {
     return await axios.post(`${connectionUri}api/company`, data);
   };
-
   const checkLocalStorage = () => {
     const storedAuth = localStorage.getItem("auth");
 
@@ -133,6 +131,17 @@ export const GlobalContextProvider = ({ children }) => {
       setAuth(null);
     }
   };
+  const updateCompanyid = async (id, user) => {
+    return await axios.put(`${connectionUri}api/company/${id}`, user);
+  };
+  const ObtenerEmpresaId = async (id) => {
+    try {
+      return await axios.get(`${connectionUri}api/company/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+    return;
+  }
 
   useEffect(() => {
     checkLocalStorage();
@@ -163,6 +172,8 @@ export const GlobalContextProvider = ({ children }) => {
         createCompany,
         obtenerEscuela,
         obtenerDatosDocente,
+        updateCompanyid,
+        ObtenerEmpresaId
       }}
     >
       {children}
