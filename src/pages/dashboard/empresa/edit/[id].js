@@ -8,6 +8,7 @@ const Edit = () => {
   const router = useRouter();
   const { updateCompanyid, ObtenerEmpresaId} = useGlobal();
   const [company, setCompany] = useState({
+    id:"",
     Nombre: "",
     Distrito: "",
     Provincia: "",
@@ -30,10 +31,9 @@ const Edit = () => {
       return;
     }
     try {
-      const { status, data } = await updateCompanyid(company);
+      const { status, data } = await updateCompanyid(router.query.id, company);
       if (status == 201) {
-        clear();
-        alert("MODIFICADO");
+        alert(`${data.message}`);
       } else {
         alert(`${data.message}`);
       }

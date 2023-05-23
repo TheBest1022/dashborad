@@ -48,6 +48,19 @@ const Add = () => {
     { id: 6, name: "HABILIDADES SOCIALES" },
     { id: 7, name: "HABILIDADES LOGICO-MATEMATICO" },
   ];
+
+  const clear = () =>{
+    setUser({
+      documento: "",
+      Nombre: "",
+      Apellido: "",
+      usuario: "",
+      contraseña: "",
+      empresa: "",
+      rol: "",
+    });
+  };
+
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
   };
@@ -71,6 +84,7 @@ const Add = () => {
       }
       const { status, data } = await createUser(user);
       if (status == 201) {
+        clear();
         alert("Registrado");
         setUser({
           id: "",
