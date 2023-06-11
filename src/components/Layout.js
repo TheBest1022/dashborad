@@ -25,6 +25,7 @@ const navigation = [
     roles: [1, 5, 6],
   },
   { name: "Colegios", href: "/dashboard/empresa", current: false, roles: [1] },
+  { name: "Alumnos", href: "/dashboard/piscologo", current: false, roles: [1, 8] },
 ];
 const userNavigation = [
   { name: "Perfil", href: "#", onClick: null },

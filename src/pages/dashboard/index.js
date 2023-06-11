@@ -25,6 +25,13 @@ const people = [
     link: "/dashboard/empresa",
     roles: [1],
   },
+  {
+    name: "Estudiantes",
+    role: "Sección / Estudiante",
+    imageUrl: "https://www.dropbox.com/s/uohvjfq5dbgeiy4/gracias.png?dl=1",
+    link: "/dashboard/psicologo",
+    roles: [1, 8],
+  },
 ];
 
 const Home = () => {

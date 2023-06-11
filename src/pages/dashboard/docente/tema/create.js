@@ -2,7 +2,7 @@
 import Layout from "@/components/Layout";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { PhotoIcon} from "@heroicons/react/24/solid";
+import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 import { useGlobal } from "../../../../context/GlobalProvider";
 import { connectionUri } from "../../../../helpers/configuration";
@@ -15,6 +15,7 @@ const Create = () => {
     idCurso: "",
     nameFile: "",
   });
+  console.log(auth);
 
   const [file, setFile] = useState(null);
 
@@ -126,119 +127,123 @@ const Create = () => {
           </div>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div className="col-span-full">
-            <label
-              htmlFor="cover-photo"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Sonido
-            </label>
-            <div className="mt-2 flex justify-center rounded-lg  border border-dashed border-indigo-900/25 px-6 py-10">
-              <div className="text-center">
-                <PhotoIcon
-                  className="mx-auto h-12 w-12 text-gray-300"
-                  aria-hidden="true"
-                />
-                <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                  <label
-                    htmlFor="file"
-                    className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                  >
-                    <span>Cargar un archivo</span>
-                    <input
-                      id="file"
-                      name="file"
-                      type="file"
-                      onChange={(e) => setFile(e.target.files[0])}
-                      className="sr-only"
-                    />
-                  </label>
-                  <p className="pl-1">arrastras y soltar</p>
+        {auth.idCurso != 2 && (
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="col-span-full">
+              <label
+                htmlFor="cover-photo"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Pdf
+              </label>
+              <div className="mt-2 flex justify-center rounded-lg  border border-dashed border-indigo-900/25 px-6 py-10">
+                <div className="text-center">
+                  <PhotoIcon
+                    className="mx-auto h-12 w-12 text-gray-300"
+                    aria-hidden="true"
+                  />
+                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                    <label
+                      htmlFor="file"
+                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                    >
+                      <span>Cargar un archivo</span>
+                      <input
+                        id="file"
+                        name="file"
+                        type="file"
+                        onChange={(e) => setFile(e.target.files[0])}
+                        className="sr-only"
+                      />
+                    </label>
+                    <p className="pl-1">arrastras y soltar</p>
+                  </div>
+                  <p className="text-xs leading-5 text-gray-600">
+                    PDF up to 10MB
+                  </p>
                 </div>
-                <p className="text-xs leading-5 text-gray-600">
-                  Sound
-                </p>
               </div>
             </div>
           </div>
-        </div>
-        
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div className="col-span-full">
-            <label
-              htmlFor="cover-photo"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Imagen
-            </label>
-            <div className="mt-2 flex justify-center rounded-lg  border border-dashed border-indigo-900/25 px-6 py-10">
-              <div className="text-center">
-                <PhotoIcon
-                  className="mx-auto h-12 w-12 text-gray-300"
-                  aria-hidden="true"
-                />
-                <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                  <label
-                    htmlFor="file"
-                    className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                  >
-                    <span>Cargar un archivo</span>
-                    <input
-                      id="file"
-                      name="file"
-                      type="file"
-                      onChange={(e) => setFile(e.target.files[0])}
-                      className="sr-only"
-                    />
-                  </label>
-                  <p className="pl-1">arrastras y soltar</p>
-                </div>
-                <p className="text-xs leading-5 text-gray-600">
-                  jpg, png up to 10MB
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        )}
 
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div className="col-span-full">
-            <label
-              htmlFor="cover-photo"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Pdf
-            </label>
-            <div className="mt-2 flex justify-center rounded-lg  border border-dashed border-indigo-900/25 px-6 py-10">
-              <div className="text-center">
-                <PhotoIcon
-                  className="mx-auto h-12 w-12 text-gray-300"
-                  aria-hidden="true"
-                />
-                <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                  <label
-                    htmlFor="file"
-                    className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                  >
-                    <span>Cargar un archivo</span>
-                    <input
-                      id="file"
-                      name="file"
-                      type="file"
-                      onChange={(e) => setFile(e.target.files[0])}
-                      className="sr-only"
+        {auth.idCurso == 2 && (
+          <div>
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div className="col-span-full">
+                <label
+                  htmlFor="cover-photo"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Sonido
+                </label>
+                <div className="mt-2 flex justify-center rounded-lg  border border-dashed border-indigo-900/25 px-6 py-10">
+                  <div className="text-center">
+                    <PhotoIcon
+                      className="mx-auto h-12 w-12 text-gray-300"
+                      aria-hidden="true"
                     />
-                  </label>
-                  <p className="pl-1">arrastras y soltar</p>
+                    <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                      <label
+                        htmlFor="file"
+                        className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                      >
+                        <span>Cargar un archivo</span>
+                        <input
+                          id="file"
+                          name="file"
+                          type="file"
+                          onChange={(e) => setFile(e.target.files[0])}
+                          className="sr-only"
+                        />
+                      </label>
+                      <p className="pl-1">arrastras y soltar</p>
+                    </div>
+                    <p className="text-xs leading-5 text-gray-600">Sound</p>
+                  </div>
                 </div>
-                <p className="text-xs leading-5 text-gray-600">
-                  PDF up to 10MB
-                </p>
+              </div>
+            </div>
+
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div className="col-span-full">
+                <label
+                  htmlFor="cover-photo"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Imagen
+                </label>
+                <div className="mt-2 flex justify-center rounded-lg  border border-dashed border-indigo-900/25 px-6 py-10">
+                  <div className="text-center">
+                    <PhotoIcon
+                      className="mx-auto h-12 w-12 text-gray-300"
+                      aria-hidden="true"
+                    />
+                    <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                      <label
+                        htmlFor="file"
+                        className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                      >
+                        <span>Cargar un archivo</span>
+                        <input
+                          id="file"
+                          name="file"
+                          type="file"
+                          onChange={(e) => setFile(e.target.files[0])}
+                          className="sr-only"
+                        />
+                      </label>
+                      <p className="pl-1">arrastras y soltar</p>
+                    </div>
+                    <p className="text-xs leading-5 text-gray-600">
+                      jpg, png up to 10MB
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button

@@ -13,6 +13,10 @@ const rols = [
     id: 6,
     name: "Director",
   },
+  {
+    id:8,
+    name:"Psicologo"
+  }
 ];
 
 const Add = () => {

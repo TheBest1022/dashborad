@@ -40,7 +40,10 @@ const Home = () => {
         return (
           <>
             {docente.length != 0 ? (
-              <TableComponent title={title} data={docente.filter(({estado})=> estado == 1)} />
+              <TableComponent
+                title={title}
+                data={docente.filter(({ estado }) => estado == 1)}
+              />
             ) : (
               <div className="ml-2 spinner"></div>
             )}
@@ -49,12 +52,11 @@ const Home = () => {
       } else {
         return (
           <>
-            {" "}
             {course.length != 0 ? (
               <TableCourseComponent title={titleCourse} data={course} />
             ) : (
               <div className="ml-2 spinner"></div>
-            )}{" "}
+            )}
           </>
         );
       }
