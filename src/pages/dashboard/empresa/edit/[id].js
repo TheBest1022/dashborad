@@ -50,7 +50,7 @@ const Edit = () => {
     if (router.query?.id) {
       loadData(router.query.id);
     }
-  },[ObtenerEmpresaId])
+  },[ObtenerEmpresaId, router.query.id ])
 
 
   return (

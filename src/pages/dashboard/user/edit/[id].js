@@ -71,7 +71,7 @@ const Edit = () => {
   };
   useEffect(() => {
     obtenerEscuela();
-  }, []);
+  }, [obtenerEscuela]);
 
   useEffect(() => {
     const loadData = async (id) => {

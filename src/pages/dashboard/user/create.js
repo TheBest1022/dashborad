@@ -109,7 +109,7 @@ const Add = () => {
   };
   useEffect(() => {
     obtenerEscuela();
-  }, []);
+  }, [obtenerEscuela]);
 
   return (
     <Layout>

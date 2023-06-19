@@ -48,7 +48,7 @@ export default function Home() {
     if (auth != null) {
       router.push("/dashboard");
     }
-  }, []);
+  }, [auth, router]);
 
   return (
     <>
