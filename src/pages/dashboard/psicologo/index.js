@@ -36,7 +36,7 @@ const Home = () => {
               />
             ) : (
               <>
-                <p className="text-xl mt-5">No hay Registros</p>
+                <p className="text-xl mt-5">No existen Registros</p>
                 <div className="ml-2 spinner"></div>
               </>
             )}
