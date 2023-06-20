@@ -15,7 +15,6 @@ const Create = () => {
     idCurso: "",
     nameFile: "",
   });
-  console.log(auth);
 
   const [file, setFile] = useState(null);
 
@@ -60,6 +59,7 @@ const Create = () => {
       getCoursesForId(auth.idDocente);
     }
   }, []);
+
   return (
     <Layout>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -127,7 +127,7 @@ const Create = () => {
           </div>
         </div>
 
-        {auth.idCurso != 2 && (
+        {auth && auth.idCurso !== 2 && (
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="col-span-full">
               <label
@@ -167,7 +167,7 @@ const Create = () => {
           </div>
         )}
 
-        {auth.idCurso == 2 && (
+        {auth && auth.idCurso == 2 && (
           <div>
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="col-span-full">
