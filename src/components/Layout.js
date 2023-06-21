@@ -16,7 +16,7 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Home", href: "/dashboard", current: true, roles: [1, 5, 6] },
+  { name: "Home", href: "/dashboard", current: true, roles: [1, 5, 6, 8] },
   { name: "Usuarios", href: "/dashboard/user", current: false, roles: [1, 6] },
   {
     name: "Docente",
@@ -25,7 +25,7 @@ const navigation = [
     roles: [1, 5, 6],
   },
   { name: "Colegios", href: "/dashboard/empresa", current: false, roles: [1] },
-  { name: "Alumnos", href: "/dashboard/piscologo", current: false, roles: [1, 8] },
+  { name: "Alumnos", href: "/dashboard/psicologo", current: false, roles: [1, 8] },
 ];
 const userNavigation = [
   { name: "Perfil", href: "#", onClick: null },

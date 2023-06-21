@@ -22,6 +22,7 @@ const titleUserTable = [
 
 const Home = () => {
   const { auth, user, obtenerUsuarios } = useGlobal();
+  console.log(user)
   const router = useRouter();
   useEffect(() => {
     if (auth != null) {
@@ -41,7 +42,7 @@ const Home = () => {
             >
               Crear Usuario
             </button>
-          )}{" "}
+          )}
         </>
       )}
 

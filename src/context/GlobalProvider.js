@@ -18,9 +18,11 @@ export const GlobalContextProvider = ({ children }) => {
   const [course, setCourse] = useState([]);
   const [company, setCompany] = useState([]);
   const [theme, setTheme] = useState([]);
+  const [psicologo, setPsicologo] = useState([]);
+  const [student, setStudent] = useState([]);
   //INGRESAR
   const SignIn = async (user) => {
-    return await axios.post(`${connectionUri}api/auth`, user);
+    return await axios.post(`${connectionUri}api/auth/`, user);
   };
   //SALIDA
   const LogOut = () => {
@@ -142,10 +144,30 @@ export const GlobalContextProvider = ({ children }) => {
     }
     return;
   }
-
   useEffect(() => {
     checkLocalStorage();
   }, []);
+    //psicologo
+    const obtenerStudents = async (id) => {
+      try {
+        const { data } = await axios.get(`${connectionUri}api/psicologo/${id}/users`);
+        setStudent(data);
+      } catch (error) {
+        console.log(error);
+      }
+      return;
+    };
+    //Studente
+    const getStudents = async (id) => {
+      try {
+        const { data } = await axios.get(
+          `${conexionURL}api/student/company/${id}`
+        );
+        setStudent(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
   return (
     <GlobalContext.Provider
       value={{
@@ -155,6 +177,8 @@ export const GlobalContextProvider = ({ children }) => {
         theme,
         company,
         docente,
+        psicologo,
+        student,
         SignIn,
         LogOut,
         setAuth,
@@ -173,7 +197,9 @@ export const GlobalContextProvider = ({ children }) => {
         obtenerEscuela,
         obtenerDatosDocente,
         updateCompanyid,
-        ObtenerEmpresaId
+        ObtenerEmpresaId,
+        obtenerStudents,
+        getStudents
       }}
     >
       {children}

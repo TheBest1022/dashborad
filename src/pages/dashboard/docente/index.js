@@ -42,7 +42,7 @@ const Home = () => {
             {docente.length != 0 ? (
               <TableComponent
                 title={title}
-                data={docente.filter(({ estado }) => estado == 1)}
+                data={docente.filter(({ estado }) => estado == 1)}  
               />
             ) : (
               <div className="ml-2 spinner"></div>
@@ -73,7 +73,7 @@ const Home = () => {
     if (auth != null) {
       getCoursesForId(auth.idDocente);
     }
-  }, []);
+  }, [getCoursesForId]);
   return (
     <Layout>
       {auth != null && (
